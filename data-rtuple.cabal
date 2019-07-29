@@ -1,0 +1,46 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 7442337e82e8a2b44a874e2fa0b50157694acdab053567a303c37ffe8fff2e4c
+
+name:           data-rtuple
+version:        1.1.15
+synopsis:       Recursive tuple data structure. It is very usefull when implementing some lo-level operations, allowing to traverse different elements using Haskell's type classes.
+category:       Text
+stability:      experimental
+homepage:       https://github.com/wdanilo/rtuple
+bug-reports:    https://github.com/wdanilo/rtuple/issues
+author:         Wojciech Danilo
+maintainer:     Wojciech Danilo <wojciech.danilo@gmail.com>
+copyright:      Copyright (C) 2014 Wojciech Danilo
+license:        Apache-2.0
+license-file:   LICENSE
+build-type:     Simple
+
+library
+  exposed-modules:
+      Data.HFList
+      Data.RTuple
+      Data.RTuple.Class
+      Data.RTuple.Curry
+      Data.RTuple.Examples
+      Data.TList
+  other-modules:
+      Paths_data_rtuple
+  hs-source-dirs:
+      src
+  default-extensions: ConstraintKinds DataKinds DefaultSignatures DeriveDataTypeable DeriveFoldable DeriveFunctor DeriveGeneric DeriveTraversable DoAndIfThenElse EmptyDataDecls FlexibleContexts FlexibleInstances GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses OverloadedStrings StandaloneDeriving ScopedTypeVariables TemplateHaskell TupleSections TypeOperators ViewPatterns TypeFamilies
+  ghc-options: -Wall -O2
+  build-depends:
+      base
+    , data-default
+    , data-prop
+    , ghc-prim
+    , lens
+    , lens-utils
+    , mtl
+    , typelevel
+  default-language: Haskell2010
