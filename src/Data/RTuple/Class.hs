@@ -22,6 +22,7 @@ import Control.Monad.Identity hiding (mapM)
 import Data.Default
 import Data.List              (intercalate)
 import Data.Typeable
+import Data.Kind              (Type)
 import GHC.Exts               (Any, unsafeCoerce#)
 import GHC.TypeLits
 import Type.Container         (Append, Index, Index2, Reverse)
@@ -388,7 +389,7 @@ instance (Default l, Default (List ls)) => Default (List (l ': ls)) where def = 
 
 -- === Mapping === --
 
-class    ctx a => CtxM ctx a (m :: ★ -> ★)
+class    ctx a => CtxM ctx a (m :: Type -> Type)
 instance ctx a => CtxM ctx a m
 
 type  Map  ctx = MapM (CtxM ctx) Identity
@@ -492,7 +493,7 @@ type family LookupAssoc k s where
 -- newtype TMap (keys :: [k]) (vals :: [*]) = TMap (List vals)
 -- makeWrapped ''TMap
 
-newtype TMap (rels :: [Assoc k ★]) = TMap (List (Values rels))
+newtype TMap (rels :: [Assoc k Type]) = TMap (List (Values rels))
 makeWrapped ''TMap
 
 type family Relations a where
@@ -529,7 +530,7 @@ insert2 _ val = wrapped %~ prepend val
 --
 -- type instance Access key (TMap (k ': ks) (v ': vs)) = If (key == k) v (Access key (TMap ks vs))
 
-type instance Access (key :: ★)   (TMap (k ':= v ': rels)) = If (key == k) v (Access key (TMap rels))
+type instance Access (key :: Type)   (TMap (k ':= v ': rels)) = If (key == k) v (Access key (TMap rels))
 type instance Prop.Update key a (TMap (k ':= v ': rels)) = If (key == k) (TMap (k ':= a ': rels)) (TMap (k ':= v ': (Relations (Prop.Update key a (TMap rels)))))
 
 instance {-# OVERLAPPABLE #-} (GetMissmatch k (l ':= v ': rels), Accessor k (TMap rels))
